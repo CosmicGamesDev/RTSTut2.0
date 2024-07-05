@@ -2,7 +2,7 @@ extends Node2D
 
 var selected = []
 signal deselect
-signal do_action(pos: Vector2, state)
+signal do_action(pos: Vector2, state, interactive_object: Node2D)
 
 var dragging = false
 var drag_start = Vector2.ZERO  # Location where drag began.
@@ -49,6 +49,6 @@ func _input(event):
 	if event.is_action_pressed("click") and HoverManager.hovered_items.size() == 0:
 		emit_signal("do_action", get_global_mouse_position(), ACTION_STATES.move)
 	if event.is_action_pressed("click") and HoverManager.hovered_items.size() > 0:
-		emit_signal("do_action", HoverManager.hover_first.parent.action_location, ACTION_STATES.gather)
+		emit_signal("do_action", HoverManager.hover_first.parent.action_location, ACTION_STATES.gather, HoverManager.hover_first.parent)
 
 

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt8lvnwrptubp"]
+
+[ext_resource type="Texture2D" uid="uid://bhbu5l344de0y" path="res://Tiny Swords (Update 010)/Factions/Knights/Buildings/House/House_Blue.png" id="1_mxmuo"]
+
+[node name="HouseBuildMode" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.439216)
+texture = ExtResource("1_mxmuo")

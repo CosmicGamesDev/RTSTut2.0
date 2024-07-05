@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://e5060ywvfswa"]
+
+[ext_resource type="Shader" path="res://outline.gdshader" id="1_ahilf"]
+[ext_resource type="Texture2D" uid="uid://cm67tlwwa7wee" path="res://Tiny Swords (Update 010)/Factions/Knights/Buildings/Castle/Castle_Blue.png" id="2_qkbb8"]
+[ext_resource type="Script" path="res://castle.gd" id="3_gowmy"]
+[ext_resource type="PackedScene" uid="uid://b1qgiv1pmpqqp" path="res://clickable_area.tscn" id="4_hll26"]
+[ext_resource type="PackedScene" uid="uid://bump3xf2rmtub" path="res://resource_gather_area.tscn" id="5_tvktq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fqenr"]
+resource_local_to_scene = true
+shader = ExtResource("1_ahilf")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 16
+shader_parameter/ring_offset = null
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = null
+shader_parameter/max_or_add = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0c88"]
+size = Vector2(256, 144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxtm4"]
+size = Vector2(256, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sdfgw"]
+size = Vector2(352, 238)
+
+[node name="Castle" type="Sprite2D" groups=["castle"]]
+material = SubResource("ShaderMaterial_fqenr")
+texture = ExtResource("2_qkbb8")
+script = ExtResource("3_gowmy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_r0c88")
+
+[node name="ClickableArea" parent="." node_paths=PackedStringArray("parent", "sprite") instance=ExtResource("4_hll26")]
+position = Vector2(0, 26)
+parent = NodePath("..")
+sprite = NodePath("..")
+
+[node name="CollisionShape2D" parent="ClickableArea" index="0"]
+position = Vector2(0, 0)
+rotation = 0.0
+shape = SubResource("RectangleShape2D_rxtm4")
+
+[node name="ResourceLocation" type="Node2D" parent="."]
+
+[node name="ResourceGatherArea" parent="ResourceLocation" node_paths=PackedStringArray("parent_interactive_obj") instance=ExtResource("5_tvktq")]
+parent_interactive_obj = NodePath("../..")
+
+[node name="CollisionShape2D" parent="ResourceLocation/ResourceGatherArea" index="0"]
+position = Vector2(-7, 15)
+shape = SubResource("RectangleShape2D_sdfgw")
+
+[editable path="ClickableArea"]
+[editable path="ResourceLocation/ResourceGatherArea"]

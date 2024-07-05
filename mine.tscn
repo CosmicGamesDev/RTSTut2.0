@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqv5vyqxkctim"]
+[gd_scene load_steps=13 format=3 uid="uid://bqv5vyqxkctim"]
 
 [ext_resource type="Texture2D" uid="uid://d0r447eow58j5" path="res://Tiny Swords (Update 010)/Resources/Gold Mine/GoldMine_Inactive.png" id="1_oss5a"]
 [ext_resource type="Shader" path="res://outline.gdshader" id="2_60ibp"]
 [ext_resource type="Script" path="res://mine.gd" id="3_dqoh1"]
 [ext_resource type="PackedScene" uid="uid://b1qgiv1pmpqqp" path="res://clickable_area.tscn" id="4_3hccp"]
 [ext_resource type="Texture2D" uid="uid://b81xanxvm7ijy" path="res://Tiny Swords (Update 010)/Resources/Gold Mine/GoldMine_Active.png" id="5_nswor"]
+[ext_resource type="PackedScene" uid="uid://bump3xf2rmtub" path="res://resource_gather_area.tscn" id="6_ufwvj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fqenr"]
 resource_local_to_scene = true
@@ -37,6 +38,22 @@ tracks/0/keys = {
 "values": [ExtResource("1_oss5a")]
 }
 
+[sub_resource type="Animation" id="Animation_quu64"]
+resource_name = "active"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_nswor")]
+}
+
 [sub_resource type="Animation" id="Animation_nhdow"]
 resource_name = "inactive"
 length = 0.001
@@ -52,22 +69,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("1_oss5a")]
-}
-
-[sub_resource type="Animation" id="Animation_quu64"]
-resource_name = "active"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("5_nswor")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n6gs6"]
@@ -99,3 +100,6 @@ autoplay = "inactive"
 
 [node name="MineLocation" type="Node2D" parent="."]
 position = Vector2(0, 45)
+
+[node name="ResourceGatherArea" parent="MineLocation" node_paths=PackedStringArray("parent_interactive_obj") instance=ExtResource("6_ufwvj")]
+parent_interactive_obj = NodePath("../..")
