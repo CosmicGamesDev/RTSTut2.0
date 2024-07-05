@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1qgiv1pmpqqp"]
+
+[ext_resource type="Script" path="res://ClickableArea.gd" id="1_75igd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wonxn"]
+radius = 47.0
+height = 136.0
+
+[node name="ClickableArea" type="Area2D"]
+script = ExtResource("1_75igd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wonxn")
