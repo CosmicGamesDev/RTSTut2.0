@@ -11,7 +11,8 @@ var select_rect = RectangleShape2D.new()
 enum ACTION_STATES {
 	idle,
 	move,
-	gather
+	gather,
+	build
 }
 
 func _unhandled_input(event):
@@ -46,9 +47,14 @@ func _draw():
 		z_index = 1
 
 func _input(event):
+	if event.is_action_pressed("deselect"):
+		for unit in selected:
+			unit.unselect()
+		selected = []
 	if event.is_action_pressed("click") and HoverManager.hovered_items.size() == 0:
 		emit_signal("do_action", get_global_mouse_position(), ACTION_STATES.move)
 	if event.is_action_pressed("click") and HoverManager.hovered_items.size() > 0:
-		emit_signal("do_action", HoverManager.hover_first.parent.action_location, ACTION_STATES.gather, HoverManager.hover_first.parent)
+		emit_signal("do_action", HoverManager.hover_first.parent.action_location.global_position, ACTION_STATES.gather, HoverManager.hover_first.parent)
 
-
+func emit_action(pos, state, interactive_obj):
+	emit_signal("do_action", pos, state, interactive_obj)

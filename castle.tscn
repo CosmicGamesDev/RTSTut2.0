@@ -26,12 +26,14 @@ size = Vector2(256, 144)
 size = Vector2(256, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sdfgw"]
-size = Vector2(352, 238)
+size = Vector2(296, 204)
 
-[node name="Castle" type="Sprite2D" groups=["castle"]]
+[node name="Castle" type="Sprite2D" node_paths=PackedStringArray("action_location") groups=["castle"]]
 material = SubResource("ShaderMaterial_fqenr")
 texture = ExtResource("2_qkbb8")
 script = ExtResource("3_gowmy")
+action_location = NodePath("ResourceLocation")
+gather_type = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, 19)
@@ -55,7 +57,7 @@ shape = SubResource("RectangleShape2D_rxtm4")
 parent_interactive_obj = NodePath("../..")
 
 [node name="CollisionShape2D" parent="ResourceLocation/ResourceGatherArea" index="0"]
-position = Vector2(-7, 15)
+position = Vector2(0, 22)
 shape = SubResource("RectangleShape2D_sdfgw")
 
 [editable path="ClickableArea"]

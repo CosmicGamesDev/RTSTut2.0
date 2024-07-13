@@ -78,10 +78,11 @@ _data = {
 "inactive": SubResource("Animation_nhdow")
 }
 
-[node name="Mine" type="Sprite2D"]
+[node name="Mine" type="Sprite2D" node_paths=PackedStringArray("action_location")]
 material = SubResource("ShaderMaterial_fqenr")
 texture = ExtResource("1_oss5a")
 script = ExtResource("3_dqoh1")
+action_location = NodePath("MineLocation")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

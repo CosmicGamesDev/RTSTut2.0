@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxmshv0e3snm0"]
+[gd_scene load_steps=14 format=3 uid="uid://dxmshv0e3snm0"]
 
 [ext_resource type="Shader" path="res://outline.gdshader" id="1_808d1"]
 [ext_resource type="Texture2D" uid="uid://bhbu5l344de0y" path="res://Tiny Swords (Update 010)/Factions/Knights/Buildings/House/House_Blue.png" id="1_aqu0p"]
 [ext_resource type="PackedScene" uid="uid://b1qgiv1pmpqqp" path="res://clickable_area.tscn" id="2_a1737"]
+[ext_resource type="Script" path="res://house.gd" id="3_v52c3"]
 [ext_resource type="Texture2D" uid="uid://75j47mny0ml0" path="res://Tiny Swords (Update 010)/Factions/Knights/Buildings/House/House_Construction.png" id="4_kcfil"]
+[ext_resource type="PackedScene" uid="uid://cmu02c4iofir6" path="res://build_area.tscn" id="5_86c14"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qu5hi"]
 resource_local_to_scene = true
@@ -20,22 +22,6 @@ shader_parameter/max_or_add = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2rkrj"]
 size = Vector2(128, 96)
-
-[sub_resource type="Animation" id="Animation_ii277"]
-resource_name = "built"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_aqu0p")]
-}
 
 [sub_resource type="Animation" id="Animation_wk3kw"]
 length = 0.001
@@ -68,6 +54,22 @@ tracks/0/keys = {
 "values": [ExtResource("4_kcfil")]
 }
 
+[sub_resource type="Animation" id="Animation_ii277"]
+resource_name = "built"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_aqu0p")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h4nnd"]
 _data = {
 "RESET": SubResource("Animation_wk3kw"),
@@ -75,9 +77,14 @@ _data = {
 "built": SubResource("Animation_ii277")
 }
 
-[node name="House" type="Sprite2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fgl8"]
+size = Vector2(96, 96)
+
+[node name="House" type="Sprite2D" node_paths=PackedStringArray("action_location")]
 material = SubResource("ShaderMaterial_qu5hi")
 texture = ExtResource("1_aqu0p")
+script = ExtResource("3_v52c3")
+action_location = NodePath(".")
 
 [node name="ClickableArea" parent="." node_paths=PackedStringArray("parent", "sprite") instance=ExtResource("2_a1737")]
 parent = NodePath("..")
@@ -92,5 +99,14 @@ libraries = {
 "": SubResource("AnimationLibrary_h4nnd")
 }
 autoplay = "building"
+
+[node name="BuildArea" parent="." node_paths=PackedStringArray("parent_interactive_obj") instance=ExtResource("5_86c14")]
+parent_interactive_obj = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildArea"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_1fgl8")
+
+[connection signal="build_finished" from="BuildArea" to="." method="_on_build_area_build_finished"]
 
 [editable path="ClickableArea"]

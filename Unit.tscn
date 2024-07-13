@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Unit.gd" id="1_3yv82"]
 [ext_resource type="Texture2D" uid="uid://dolqkpfvgjmiq" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Pawn/Blue/Pawn_Blue.png" id="2_c323a"]
 [ext_resource type="Shader" path="res://outline.gdshader" id="2_ipqfj"]
-[ext_resource type="Script" path="res://GatherArea.gd" id="4_ef5gn"]
+[ext_resource type="Script" path="res://WorkArea.gd" id="4_khxuq"]
 [ext_resource type="Texture2D" uid="uid://bkn7h3uc7hccg" path="res://Tiny Swords (Update 010)/Resources/Resources/G_Idle.png" id="5_416gu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tbaf3"]
@@ -121,16 +121,16 @@ autoplay = "idle"
 avoidance_enabled = true
 debug_enabled = true
 
-[node name="GatherArea" type="Area2D" parent="." node_paths=PackedStringArray("parent_unit") groups=["gather_area"]]
+[node name="WorkArea" type="Area2D" parent="." node_paths=PackedStringArray("parent_unit") groups=["work_area"]]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("4_ef5gn")
+script = ExtResource("4_khxuq")
 parent_unit = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GatherArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkArea"]
 shape = SubResource("CircleShape2D_041f5")
 
-[node name="ResourceSprite" type="Sprite2D" parent="GatherArea"]
+[node name="ResourceSprite" type="Sprite2D" parent="WorkArea"]
 visible = false
 position = Vector2(0, -48)
 texture = ExtResource("5_416gu")

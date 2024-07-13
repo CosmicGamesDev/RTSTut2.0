@@ -1,5 +1,2 @@
-extends Sprite2D
+extends ResourceUnit
 
-
-@onready var action_location = $MineLocation.global_position
-var gather_type = "resource"
